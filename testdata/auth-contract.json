@@ -1,0 +1,168 @@
+{
+  "version": 1,
+  "description": "Kontrak login GONSU One yang dapat dijalankan. Dihasilkan sdk/go-auth sebagai implementasi rujukan; setiap SDK menjadikannya test. Yang mengikat hanyalah `accept` — SDK yang menolak dengan alasan berbeda tetap benar. Kunci di dalamnya kunci UJI, bukan kunci sungguhan.",
+  "signing_key": {
+    "crv": "P-384",
+    "kid": "kontrak-auth-1",
+    "alg": "ES384",
+    "public_x_base64url": "x28ig92pXNSbDtnnM9KQRHTjchbxJOE9LJq0zwECHEmtnKuz0Ll0ma7y8KsxP6Ao",
+    "public_y_base64url": "Jrwfg0UbXIlip1yv9zWI1EAKYpZDYVT7NDw5PpEEimx7y63IPNil8m_q6IMVb5Kh",
+    "private_d_base64url": "AQIDBAUGBwgJCgsMDQ4PEBESExQVFhcYGRobHB0eHyAhIiMkJSYnKCkqKywtLi8w",
+    "kegunaan": "Privatnya disertakan supaya SDK dapat menyusun kasus negatifnya sendiri — misalnya token yang ditandatangani kunci asing."
+  },
+  "config": {
+    "issuer": "https://id.gonsu.example/oidc",
+    "client_id": "app_01M1KONTRAK0000000000000001",
+    "redirect_uri": "https://erp.contoh.test/auth/gonsu/callback",
+    "clock_skew_seconds": 60,
+    "expected_nonce": "nonce-kontrak-0123456789abcdef",
+    "now_unix": 1788688800
+  },
+  "pkce": [
+    {
+      "name": "S256 v",
+      "code_verifier": "verifier-kontrak-0123456789abcdefghij",
+      "code_challenge_s256": "xVOdHG3xIt_nrqWjOjhOD_sr1fTWUGUfcpZqb_MsfYs"
+    },
+    {
+      "name": "S256 a",
+      "code_verifier": "a",
+      "code_challenge_s256": "ypeBEsobvcr6wjGzmiPcTaeG7_gUfE5yuYB3ha_uSLs"
+    }
+  ],
+  "tokens": [
+    {
+      "name": "sah",
+      "why": "keadaan biasa: seluruh pemeriksaan lulus",
+      "accept": true,
+      "id_token": "eyJhbGciOiJFUzM4NCIsImtpZCI6ImtvbnRyYWstYXV0aC0xIiwidHlwIjoiSldUIn0.eyJhdWQiOiJhcHBfMDFNMUtPTlRSQUswMDAwMDAwMDAwMDAwMDAxIiwiZW1haWwiOiJhbmRpQGNvbnRvaC50ZXN0IiwiZXhwIjoxNzg4NjkyNDAwLCJpYXQiOjE3ODg2ODg4MDAsImlzcyI6Imh0dHBzOi8vaWQuZ29uc3UuZXhhbXBsZS9vaWRjIiwibm9uY2UiOiJub25jZS1rb250cmFrLTAxMjM0NTY3ODlhYmNkZWYiLCJzdWIiOiJ1c3JfMDFNMUtPTlRSQUswMDAwMDAwMDAwMDAwMDAxIn0.tTd_z-YmFF1-j_Hmqu8jawQh_T7fdCEZUFr9bssYPROnkHeeLDUW1GTtuhD2uPxnBejAris1u9S57Fj7-7FOUwFxokPt5yba265lV3dD4vUOacT_4cImCIEk_TYBm8Ab"
+    },
+    {
+      "name": "aud berupa daftar",
+      "why": "JWT mengizinkan `aud` daftar; keduanya wajib diterima",
+      "accept": true,
+      "id_token": "eyJhbGciOiJFUzM4NCIsImtpZCI6ImtvbnRyYWstYXV0aC0xIiwidHlwIjoiSldUIn0.eyJhdWQiOlsibGFpbiIsImFwcF8wMU0xS09OVFJBSzAwMDAwMDAwMDAwMDAwMDEiXSwiZW1haWwiOiJhbmRpQGNvbnRvaC50ZXN0IiwiZXhwIjoxNzg4NjkyNDAwLCJpYXQiOjE3ODg2ODg4MDAsImlzcyI6Imh0dHBzOi8vaWQuZ29uc3UuZXhhbXBsZS9vaWRjIiwibm9uY2UiOiJub25jZS1rb250cmFrLTAxMjM0NTY3ODlhYmNkZWYiLCJzdWIiOiJ1c3JfMDFNMUtPTlRSQUswMDAwMDAwMDAwMDAwMDAxIn0.QNMldyKmB1mgzUTGL08D6jgTkl2BDuiCDUdx_wNa2KrEqG7CZlMcLYa6k85VNjbMTthStolpNR9XHtHPxVDDD-3G2s0E3lB2y8TWePRqM1fMNrfPCqO4jpXfF-sC9JH4"
+    },
+    {
+      "name": "kedaluwarsa dalam toleransi jam",
+      "why": "baru lewat beberapa detik; jam yang meleset adalah keadaan biasa",
+      "accept": true,
+      "id_token": "eyJhbGciOiJFUzM4NCIsImtpZCI6ImtvbnRyYWstYXV0aC0xIiwidHlwIjoiSldUIn0.eyJhdWQiOiJhcHBfMDFNMUtPTlRSQUswMDAwMDAwMDAwMDAwMDAxIiwiZW1haWwiOiJhbmRpQGNvbnRvaC50ZXN0IiwiZXhwIjoxNzg4Njg4NzcwLCJpYXQiOjE3ODg2ODg4MDAsImlzcyI6Imh0dHBzOi8vaWQuZ29uc3UuZXhhbXBsZS9vaWRjIiwibm9uY2UiOiJub25jZS1rb250cmFrLTAxMjM0NTY3ODlhYmNkZWYiLCJzdWIiOiJ1c3JfMDFNMUtPTlRSQUswMDAwMDAwMDAwMDAwMDAxIn0.gUdVnvMjp21hktB8Jax-YfliJEtTl8UtuOkd__qbiZ-C3ImFvHRKUqpHjnbCqGnR2bXdUFIKOxX5lZxHKCSyJttJRDkX1T1K8Xwb-kmESARIXAuc0p5ux2CvbH6OFoPt"
+    },
+    {
+      "name": "penerbit lain",
+      "why": "token dari penerbit mana pun akan lulus kalau `iss` tidak diperiksa",
+      "accept": false,
+      "id_token": "eyJhbGciOiJFUzM4NCIsImtpZCI6ImtvbnRyYWstYXV0aC0xIiwidHlwIjoiSldUIn0.eyJhdWQiOiJhcHBfMDFNMUtPTlRSQUswMDAwMDAwMDAwMDAwMDAxIiwiZW1haWwiOiJhbmRpQGNvbnRvaC50ZXN0IiwiZXhwIjoxNzg4NjkyNDAwLCJpYXQiOjE3ODg2ODg4MDAsImlzcyI6Imh0dHBzOi8vcGVueWVyYW5nLmV4YW1wbGUiLCJub25jZSI6Im5vbmNlLWtvbnRyYWstMDEyMzQ1Njc4OWFiY2RlZiIsInN1YiI6InVzcl8wMU0xS09OVFJBSzAwMDAwMDAwMDAwMDAwMDEifQ.4q2bMplnDKIuFIA7N3_IbfZGy6hK1DAgFf--PRhYRxWl0PMbXQFhUulg5oMlQqGgne89ISxKWgMyJ4LLCwG7fKjOMskZmAvyFpH2kxXbVFt5sTfRP5OB38JcFrQM5ta-"
+    },
+    {
+      "name": "penerbit hampir sama",
+      "why": "beda imbuhan saja sudah cukup membuat orang menjadi orang lain",
+      "accept": false,
+      "id_token": "eyJhbGciOiJFUzM4NCIsImtpZCI6ImtvbnRyYWstYXV0aC0xIiwidHlwIjoiSldUIn0.eyJhdWQiOiJhcHBfMDFNMUtPTlRSQUswMDAwMDAwMDAwMDAwMDAxIiwiZW1haWwiOiJhbmRpQGNvbnRvaC50ZXN0IiwiZXhwIjoxNzg4NjkyNDAwLCJpYXQiOjE3ODg2ODg4MDAsImlzcyI6Imh0dHBzOi8vaWQuZ29uc3UuZXhhbXBsZS9vaWRjLyIsIm5vbmNlIjoibm9uY2Uta29udHJhay0wMTIzNDU2Nzg5YWJjZGVmIiwic3ViIjoidXNyXzAxTTFLT05UUkFLMDAwMDAwMDAwMDAwMDAwMSJ9.WLGBSJiTlO9jMAFI-eqaGdTEmwF-tNSUR1m5bZEcT-tQ86ye8Hfe5htHBjWuB3S39TD34FDjEAUqV3Re-ERBvD3j8NySkUQ-dTXB8stIEXo_ToBGat_tnHGk0QdYEFSY"
+    },
+    {
+      "name": "untuk client lain",
+      "why": "token sah milik aplikasi lain tidak boleh diterima di sini",
+      "accept": false,
+      "id_token": "eyJhbGciOiJFUzM4NCIsImtpZCI6ImtvbnRyYWstYXV0aC0xIiwidHlwIjoiSldUIn0.eyJhdWQiOiJjbGllbnRfbGFpbiIsImVtYWlsIjoiYW5kaUBjb250b2gudGVzdCIsImV4cCI6MTc4ODY5MjQwMCwiaWF0IjoxNzg4Njg4ODAwLCJpc3MiOiJodHRwczovL2lkLmdvbnN1LmV4YW1wbGUvb2lkYyIsIm5vbmNlIjoibm9uY2Uta29udHJhay0wMTIzNDU2Nzg5YWJjZGVmIiwic3ViIjoidXNyXzAxTTFLT05UUkFLMDAwMDAwMDAwMDAwMDAwMSJ9.xaxU4v0ovLfDXlWRcTVhk8Yh72I_j4NQamo9hTtM9-BfpAbgwTmMWjqdibVoSgxqhOE51n_KNv8QJ3z9fRuyY2Z1I5nfOtO7klz1ZPNxCp07b_xXL-0jDTh9ZcCT-wWx"
+    },
+    {
+      "name": "aud daftar tanpa client ini",
+      "why": "daftar yang tidak memuat kita tetap bukan untuk kita",
+      "accept": false,
+      "id_token": "eyJhbGciOiJFUzM4NCIsImtpZCI6ImtvbnRyYWstYXV0aC0xIiwidHlwIjoiSldUIn0.eyJhdWQiOlsibGFpbiIsImxhaW5ueWEiXSwiZW1haWwiOiJhbmRpQGNvbnRvaC50ZXN0IiwiZXhwIjoxNzg4NjkyNDAwLCJpYXQiOjE3ODg2ODg4MDAsImlzcyI6Imh0dHBzOi8vaWQuZ29uc3UuZXhhbXBsZS9vaWRjIiwibm9uY2UiOiJub25jZS1rb250cmFrLTAxMjM0NTY3ODlhYmNkZWYiLCJzdWIiOiJ1c3JfMDFNMUtPTlRSQUswMDAwMDAwMDAwMDAwMDAxIn0.zdSb5hAGlyQtQBxge343dQ7B1aDet6XwxOng_rslRaU2r-XZc6SIj4j_az5fpWXA3opPLLtsPp6us3ikgU5SUS_8q0Q4bcSTAqMcyQ8GldMPjBsWceDbeEsmba5PiNtO"
+    },
+    {
+      "name": "sudah kedaluwarsa",
+      "why": "di luar toleransi jam",
+      "accept": false,
+      "id_token": "eyJhbGciOiJFUzM4NCIsImtpZCI6ImtvbnRyYWstYXV0aC0xIiwidHlwIjoiSldUIn0.eyJhdWQiOiJhcHBfMDFNMUtPTlRSQUswMDAwMDAwMDAwMDAwMDAxIiwiZW1haWwiOiJhbmRpQGNvbnRvaC50ZXN0IiwiZXhwIjoxNzg4NjgxNjAwLCJpYXQiOjE3ODg2ODg4MDAsImlzcyI6Imh0dHBzOi8vaWQuZ29uc3UuZXhhbXBsZS9vaWRjIiwibm9uY2UiOiJub25jZS1rb250cmFrLTAxMjM0NTY3ODlhYmNkZWYiLCJzdWIiOiJ1c3JfMDFNMUtPTlRSQUswMDAwMDAwMDAwMDAwMDAxIn0.eWmm93EVnfLeLXuYiYylkX8txG2X-SLXZkuACz_DB7TnqjfhetX_HjKKsnrTsM2OSAmIZ-Zr7rYJEXFM34WGWz3gDk7U7aMqaUDg07-V-Sqr5hzkfeq64_0eDVEYrLml"
+    },
+    {
+      "name": "tanpa exp",
+      "why": "token tanpa masa berlaku berlaku selamanya",
+      "accept": false,
+      "id_token": "eyJhbGciOiJFUzM4NCIsImtpZCI6ImtvbnRyYWstYXV0aC0xIiwidHlwIjoiSldUIn0.eyJhdWQiOiJhcHBfMDFNMUtPTlRSQUswMDAwMDAwMDAwMDAwMDAxIiwiZW1haWwiOiJhbmRpQGNvbnRvaC50ZXN0IiwiaWF0IjoxNzg4Njg4ODAwLCJpc3MiOiJodHRwczovL2lkLmdvbnN1LmV4YW1wbGUvb2lkYyIsIm5vbmNlIjoibm9uY2Uta29udHJhay0wMTIzNDU2Nzg5YWJjZGVmIiwic3ViIjoidXNyXzAxTTFLT05UUkFLMDAwMDAwMDAwMDAwMDAwMSJ9.ZAiTgQRLDLNfJtKOmIbQv1zzH7KwlnDqfOEqsFGgXurdu2-mrHZ2arLhFuPQx7k2M3ZC33_pnaORtYpYh2yklpZ4UtAQPrqtQj1OuzNvcsZpCEE8bnPq5QgoKs6GG-p2"
+    },
+    {
+      "name": "diterbitkan di masa depan",
+      "why": "jam penyerang, bukan jam penerbit",
+      "accept": false,
+      "id_token": "eyJhbGciOiJFUzM4NCIsImtpZCI6ImtvbnRyYWstYXV0aC0xIiwidHlwIjoiSldUIn0.eyJhdWQiOiJhcHBfMDFNMUtPTlRSQUswMDAwMDAwMDAwMDAwMDAxIiwiZW1haWwiOiJhbmRpQGNvbnRvaC50ZXN0IiwiZXhwIjoxNzg4NjkyNDAwLCJpYXQiOjE3ODg2OTYwMDAsImlzcyI6Imh0dHBzOi8vaWQuZ29uc3UuZXhhbXBsZS9vaWRjIiwibm9uY2UiOiJub25jZS1rb250cmFrLTAxMjM0NTY3ODlhYmNkZWYiLCJzdWIiOiJ1c3JfMDFNMUtPTlRSQUswMDAwMDAwMDAwMDAwMDAxIn0.LPrlLd0TLzmt6GfgRxgGN3Lu12gedBMCD67_ae2Qa0bxnopnxp5Oof1HAQ0bn0Xmcx9XlBXjmrDI1ny5skN6qVodnheJj3Cz6tE8UoxQ5wSlM-PZYjRaFdgmFtCRSB5_"
+    },
+    {
+      "name": "nonce sesi lain",
+      "why": "tanpa nonce, token yang dipanen dapat dipakai ulang",
+      "accept": false,
+      "id_token": "eyJhbGciOiJFUzM4NCIsImtpZCI6ImtvbnRyYWstYXV0aC0xIiwidHlwIjoiSldUIn0.eyJhdWQiOiJhcHBfMDFNMUtPTlRSQUswMDAwMDAwMDAwMDAwMDAxIiwiZW1haWwiOiJhbmRpQGNvbnRvaC50ZXN0IiwiZXhwIjoxNzg4NjkyNDAwLCJpYXQiOjE3ODg2ODg4MDAsImlzcyI6Imh0dHBzOi8vaWQuZ29uc3UuZXhhbXBsZS9vaWRjIiwibm9uY2UiOiJub25jZS1sYWluIiwic3ViIjoidXNyXzAxTTFLT05UUkFLMDAwMDAwMDAwMDAwMDAwMSJ9.b2tNKhj8shKOr39alQu2QFOvriX5KOkqhy4GRpHbyNEO59wxM7A3i6c1-GA05s0sFgkeCHwNlPEZblfEyQc15AW4_UJoWC0yItjq0OvVly3KAmpVm7nBYmZoDSyzu9fi"
+    },
+    {
+      "name": "tanpa nonce",
+      "why": "ketiadaan nonce tidak boleh berarti lulus",
+      "accept": false,
+      "id_token": "eyJhbGciOiJFUzM4NCIsImtpZCI6ImtvbnRyYWstYXV0aC0xIiwidHlwIjoiSldUIn0.eyJhdWQiOiJhcHBfMDFNMUtPTlRSQUswMDAwMDAwMDAwMDAwMDAxIiwiZW1haWwiOiJhbmRpQGNvbnRvaC50ZXN0IiwiZXhwIjoxNzg4NjkyNDAwLCJpYXQiOjE3ODg2ODg4MDAsImlzcyI6Imh0dHBzOi8vaWQuZ29uc3UuZXhhbXBsZS9vaWRjIiwic3ViIjoidXNyXzAxTTFLT05UUkFLMDAwMDAwMDAwMDAwMDAwMSJ9.f-eMaJRVrcvAGr8J99Xdn92yesTkzK-j4G8SzCCaWS1DWGZI-Qe-NQQ9311sqjnUVu1c1iRG4DoygbI6dwIPlKAc4Mh4IiujHl9lkYXuv-064AtRCNX1d5i4e-c3olLC"
+    },
+    {
+      "name": "tanpa sub",
+      "why": "token tanpa subject tidak menyebut siapa pun",
+      "accept": false,
+      "id_token": "eyJhbGciOiJFUzM4NCIsImtpZCI6ImtvbnRyYWstYXV0aC0xIiwidHlwIjoiSldUIn0.eyJhdWQiOiJhcHBfMDFNMUtPTlRSQUswMDAwMDAwMDAwMDAwMDAxIiwiZW1haWwiOiJhbmRpQGNvbnRvaC50ZXN0IiwiZXhwIjoxNzg4NjkyNDAwLCJpYXQiOjE3ODg2ODg4MDAsImlzcyI6Imh0dHBzOi8vaWQuZ29uc3UuZXhhbXBsZS9vaWRjIiwibm9uY2UiOiJub25jZS1rb250cmFrLTAxMjM0NTY3ODlhYmNkZWYifQ.2-R0ETijlxE9BFjjDfVGysV-GtG1oOLoQAsEQ0sSW_mrs_1frmoZSsvvlWykt5YhL9o4eJIwTzFRL84zC4KdxDi_cIxA6_Yq_0nkRvNz7eRLGf5xs5zJ_hODlFReRvl4"
+    },
+    {
+      "name": "alg none",
+      "why": "isinya dapat ditulis siapa saja; setiap pemeriksaan sesudahnya akan lulus",
+      "accept": false,
+      "id_token": "eyJhbGciOiJub25lIiwidHlwIjoiSldUIn0.eyJhdWQiOiJhcHBfMDFNMUtPTlRSQUswMDAwMDAwMDAwMDAwMDAxIiwiZW1haWwiOiJhbmRpQGNvbnRvaC50ZXN0IiwiZXhwIjoxNzg4NjkyNDAwLCJpYXQiOjE3ODg2ODg4MDAsImlzcyI6Imh0dHBzOi8vaWQuZ29uc3UuZXhhbXBsZS9vaWRjIiwibm9uY2UiOiJub25jZS1rb250cmFrLTAxMjM0NTY3ODlhYmNkZWYiLCJzdWIiOiJ1c3JfMDFNMUtPTlRSQUswMDAwMDAwMDAwMDAwMDAxIn0."
+    },
+    {
+      "name": "kid tidak dikenal",
+      "why": "kunci yang tidak ada di JWKS bukan kunci penerbit",
+      "accept": false,
+      "id_token": "eyJhbGciOiJFUzM4NCIsImtpZCI6ImtpZC1hc2luZyIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJhcHBfMDFNMUtPTlRSQUswMDAwMDAwMDAwMDAwMDAxIiwiZW1haWwiOiJhbmRpQGNvbnRvaC50ZXN0IiwiZXhwIjoxNzg4NjkyNDAwLCJpYXQiOjE3ODg2ODg4MDAsImlzcyI6Imh0dHBzOi8vaWQuZ29uc3UuZXhhbXBsZS9vaWRjIiwibm9uY2UiOiJub25jZS1rb250cmFrLTAxMjM0NTY3ODlhYmNkZWYiLCJzdWIiOiJ1c3JfMDFNMUtPTlRSQUswMDAwMDAwMDAwMDAwMDAxIn0.B97UrtmXA1wjPgiWNuyKkDdsoO2VseUcNPPYQY0G0vJTaetSf0Ze6nC5TZXEMj6MGi-5FSi0rw_dUstmZV4mzWOEhkoxfI6ALjt1Fo4DH1X6LnGss2_aEuKFFww4NVnf"
+    },
+    {
+      "name": "tanda tangan diubah",
+      "why": "satu karakter sudah cukup",
+      "accept": false,
+      "id_token": "eyJhbGciOiJFUzM4NCIsImtpZCI6ImtvbnRyYWstYXV0aC0xIiwidHlwIjoiSldUIn0.eyJhdWQiOiJhcHBfMDFNMUtPTlRSQUswMDAwMDAwMDAwMDAwMDAxIiwiZW1haWwiOiJhbmRpQGNvbnRvaC50ZXN0IiwiZXhwIjoxNzg4NjkyNDAwLCJpYXQiOjE3ODg2ODg4MDAsImlzcyI6Imh0dHBzOi8vaWQuZ29uc3UuZXhhbXBsZS9vaWRjIiwibm9uY2UiOiJub25jZS1rb250cmFrLTAxMjM0NTY3ODlhYmNkZWYiLCJzdWIiOiJ1c3JfMDFNMUtPTlRSQUswMDAwMDAwMDAwMDAwMDAxIn0.zOqL_LwH3Rb53UF2z5x6FCQFGqmUcAli8Re8q9MSx224rdKswfbu-y1-6C5yDB7j0O_uVepPznrpUQ57QFCC7X6r2-ay76YlstjhuGWz_cigPxlKtSeXOjJYQv6Y3EqS"
+    }
+  ],
+  "tenant": [
+    {
+      "name": "sudah diberi akses",
+      "why": "keadaan biasa",
+      "subject": "usr_kontrak_1",
+      "granted_subjects": [
+        "usr_kontrak_1",
+        "usr_kontrak_2"
+      ],
+      "accept": true
+    },
+    {
+      "name": "belum pernah diberi akses",
+      "why": "token SAH milik orang dari pemasangan lain — pemasangan self-host berbagi satu penyedia identitas",
+      "subject": "usr_pemasangan_lain",
+      "granted_subjects": [
+        "usr_kontrak_1"
+      ],
+      "accept": false
+    },
+    {
+      "name": "tabel kosong",
+      "why": "pemasangan yang belum memberi akses kepada siapa pun menolak semua",
+      "subject": "usr_kontrak_1",
+      "granted_subjects": null,
+      "accept": false
+    },
+    {
+      "name": "token tanpa subject",
+      "why": "token yang tidak menyebut siapa pun tidak dapat dicocokkan",
+      "subject": "",
+      "granted_subjects": [
+        "usr_kontrak_1"
+      ],
+      "accept": false
+    }
+  ]
+}
