@@ -61,6 +61,32 @@ authorizeURL, pending, err := client.StartLogin(ctx)
 // simpan pending, lalu arahkan pengguna ke authorizeURL
 ```
 
+### Dua jalur yang WAJIB Anda pasang
+
+GONSU menentukan keduanya, dan produk tidak dapat memilih yang lain:
+
+| jalur | isinya |
+|---|---|
+| `/auth/gonsu/callback` | `HandleCallback` — ini `redirect_uri` yang didaftarkan GONSU |
+| `/auth/gonsu/login` | `StartLogin`, lalu alihkan ke `authorizeURL` |
+
+Yang pertama sudah jelas: kalau tidak ada di sana, login tidak pernah selesai.
+
+Yang kedua yang mudah terlewat. Portal menaruh tombol **"Buka aplikasi"** di
+alamat itu, karena pelanggan yang menekannya sudah masuk di Portal tetapi belum
+punya sesi di produk Anda — dua cookie pada dua domain. Tanpa jalur ini ia
+mendarat di halaman muka dan harus menekan "Masuk" sekali lagi untuk sesuatu
+yang sudah ia lakukan.
+
+`/` sengaja TIDAK dipakai untuk ini. Halaman muka itu milik Anda dan pelanggan
+Anda — taruh landing page di sana sesuka Anda; GONSU tidak akan pernah
+mengalihkannya.
+
+Keduanya berada di `/auth/gonsu/` supaya tidak bertabrakan dengan `/auth/login`
+atau `/auth/forgot-password` milik produk Anda sendiri. Silakan tetap memiliki
+keduanya — `/auth/gonsu/login` boleh sekadar alias yang mengarah ke jalur masuk
+Anda.
+
 **Selesaikan login.**
 
 ```go
