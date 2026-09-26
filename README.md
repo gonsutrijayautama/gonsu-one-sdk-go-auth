@@ -35,7 +35,7 @@ Produk tidak menyusun satu pun sendiri:
 | mode | dari mana |
 |---|---|
 | cloud | environment aplikasi: `GONSU_OIDC_ISSUER`, `GONSU_OIDC_CLIENT_ID`, `GONSU_OIDC_CLIENT_SECRET`, `GONSU_OIDC_REDIRECT_URI` |
-| self-host | agent: `GET http://agent:8099/v1/oidc` — **tanpa** `client_secret` |
+| self-host | agent: `GET $GONSU_OIDC_URL` (`http://agent:8099/v1/oidc` di paket self-host) — **tanpa** `client_secret`; menjawab 503 sampai alamat aplikasi didaftarkan di Portal |
 
 Self-host memakai **client publik dengan PKCE**: rahasia yang ditaruh di mesin
 yang administratornya pelanggan sendiri tidak melindungi apa pun dari pemilik
@@ -90,8 +90,8 @@ Anda.
 **Selesaikan login.**
 
 ```go
-claims, err := client.HandleCallback(ctx, pending, r.URL.Query().Get("state"),
-                                     r.URL.Query().Get("code"))
+login, err := client.HandleCallback(ctx, pending, r.URL.Query().Get("state"),
+                                    r.URL.Query().Get("code"))
 ```
 
 Yang diperiksa di dalamnya, dan semuanya wajib: `state`, tanda tangan, penerbit,
@@ -159,7 +159,7 @@ if errors.Is(err, gonsuauth.ErrSessionExpired) {
 // SIMPAN state yang dikembalikan: refresh token dapat dirotasi
 ```
 
-Tiga keadaan, dan yang membedakannya bukan hasil melainkan **sebab**:
+Empat keadaan, dan yang membedakannya bukan hasil melainkan **sebab**:
 
 | | |
 |---|---|
