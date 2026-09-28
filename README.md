@@ -97,6 +97,12 @@ login, err := client.HandleCallback(ctx, pending, r.URL.Query().Get("state"),
 Yang diperiksa di dalamnya, dan semuanya wajib: `state`, tanda tangan, penerbit,
 penerima, masa berlaku, waktu terbit, dan `nonce`.
 
+Balikan tanpa `code` dikembalikan sebagai galat. Itu yang Anda terima bila
+penyedia identitas menolak orangnya — misalnya `error=access_denied` untuk akun
+yang pernah masuk ke pemasangan Anda tetapi tidak termasuk orang yang boleh
+masuk, seperti pemilik bisnis yang sudah berganti. Tampilkan pesan "akun ini
+belum diberi akses", bukan galat teknis.
+
 **Pastikan orangnya memang diberi akses di sini.** Wajib, dan tidak dapat
 dilewati diam-diam:
 
@@ -106,9 +112,15 @@ err := gonsuauth.EnsureGranted(ctx, login.Claims, func(ctx context.Context, sub 
 })
 ```
 
-Pemasangan self-host berbagi satu penyedia identitas dengan seluruh pelanggan
-lain, sehingga token yang **sah menurut tanda tangan** dapat datang dari
-pemasangan mana pun.
+Pemasangan Anda berbagi satu penyedia identitas dengan seluruh pelanggan lain.
+GONSU membatasi siapa yang boleh mendapat token untuk client pemasangan Anda:
+hanya pemilik bisnis dan orang yang pernah Anda beri akses lewat layar "beri
+akses login". Akun GONSU lain berhenti di halaman masuk GONSU dan tidak pernah
+sampai ke `/auth/gonsu/callback` Anda.
+
+Pemeriksaan ini tetap wajib, karena daftar di GONSU **hanya tumbuh**: orang yang
+sudah Anda cabut dari produk masih ada di sana, dan tokennya tetap **sah menurut
+tanda tangan**.
 
 Yang dicocokkan adalah **tabel pengguna Anda sendiri**, bukan klaim di dalam
 token — klaim itu tidak ada, karena GONSU tidak pernah membuat organization di
